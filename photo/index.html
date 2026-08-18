@@ -1,0 +1,1731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Lens & Light — Photography Portfolio</title>
+
+    <meta name="description"
+          content="A beautiful modern photography portfolio website.">
+
+    <style>
+        /* =========================================
+           GOOGLE FONT
+        ========================================= */
+
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+
+        /* =========================================
+           GLOBAL STYLES
+        ========================================= */
+
+        :root {
+            --bg: #080808;
+            --bg-soft: #111111;
+            --card: #151515;
+            --white: #ffffff;
+            --text: #eeeeee;
+            --muted: #999999;
+            --gold: #d6b36a;
+            --gold-light: #f0d49a;
+            --border: rgba(255,255,255,0.10);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            width: 100%;
+            display: block;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        .container {
+            width: min(1200px, 90%);
+            margin: auto;
+        }
+
+
+        /* =========================================
+           NAVIGATION
+        ========================================= */
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 22px 0;
+            transition: 0.4s;
+        }
+
+        header.scrolled {
+            background: rgba(8,8,8,0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        nav {
+            width: min(1200px, 90%);
+            margin: auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 32px;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #ddd;
+            font-size: 14px;
+            position: relative;
+            transition: 0.3s;
+        }
+
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -7px;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .menu-btn {
+            display: none;
+            border: 0;
+            background: transparent;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+
+        /* =========================================
+           HERO
+        ========================================= */
+
+        .hero {
+            min-height: 100vh;
+            position: relative;
+
+            display: flex;
+            align-items: center;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(0,0,0,0.85),
+                    rgba(0,0,0,0.25),
+                    rgba(0,0,0,0.55)
+                ),
+                url("https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=2000&q=90")
+                center/cover no-repeat;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+
+            background:
+                radial-gradient(
+                    circle at 80% 30%,
+                    rgba(214,179,106,0.18),
+                    transparent 30%
+                );
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+        }
+
+        .eyebrow {
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            font-size: 12px;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(65px, 9vw, 130px);
+            font-weight: 500;
+            line-height: 0.85;
+            margin-bottom: 30px;
+        }
+
+        .hero h1 span {
+            color: var(--gold);
+            font-style: italic;
+        }
+
+        .hero p {
+            max-width: 550px;
+            color: #ccc;
+            font-size: 16px;
+            margin-bottom: 35px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 27px;
+            border: 1px solid var(--gold);
+            transition: 0.3s;
+            font-size: 13px;
+            letter-spacing: 1px;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--gold);
+            color: #111;
+        }
+
+        .btn-primary:hover {
+            background: var(--gold-light);
+            transform: translateY(-3px);
+        }
+
+        .btn-outline {
+            color: white;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: black;
+            transform: translateY(-3px);
+        }
+
+        .scroll {
+            position: absolute;
+            bottom: 35px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+
+            color: #aaa;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+
+        /* =========================================
+           SECTION
+        ========================================= */
+
+        section {
+            padding: 120px 0;
+        }
+
+        .section-heading {
+            margin-bottom: 60px;
+        }
+
+        .section-heading small {
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 11px;
+        }
+
+        .section-heading h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(45px, 6vw, 75px);
+            font-weight: 500;
+            line-height: 1;
+            margin-top: 12px;
+        }
+
+        .section-heading p {
+            color: var(--muted);
+            max-width: 600px;
+            margin-top: 20px;
+        }
+
+
+        /* =========================================
+           PORTFOLIO FILTERS
+        ========================================= */
+
+        .filters {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: #aaa;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: #111;
+        }
+
+
+        /* =========================================
+           GALLERY
+        ========================================= */
+
+        .gallery {
+            columns: 3 300px;
+            column-gap: 18px;
+        }
+
+        .photo {
+            break-inside: avoid;
+            margin-bottom: 18px;
+
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+
+            background: #111;
+        }
+
+        .photo img {
+            transition: transform 0.7s cubic-bezier(.2,.8,.2,1);
+        }
+
+        .photo:hover img {
+            transform: scale(1.08);
+        }
+
+        .photo-overlay {
+            position: absolute;
+            inset: 0;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+
+            padding: 25px;
+
+            background:
+                linear-gradient(
+                    transparent 30%,
+                    rgba(0,0,0,0.8)
+                );
+
+            opacity: 0;
+            transition: 0.4s;
+        }
+
+        .photo:hover .photo-overlay {
+            opacity: 1;
+        }
+
+        .photo-overlay h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 27px;
+        }
+
+        .photo-overlay span {
+            color: var(--gold);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .photo.hide {
+            display: none;
+        }
+
+
+        /* =========================================
+           ABOUT
+        ========================================= */
+
+        .about {
+            background: var(--bg-soft);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image img {
+            height: 650px;
+            object-fit: cover;
+        }
+
+        .about-image::before {
+            content: "";
+            position: absolute;
+            width: 80%;
+            height: 80%;
+            border: 1px solid var(--gold);
+            top: -20px;
+            left: -20px;
+            z-index: 0;
+        }
+
+        .about-image img {
+            position: relative;
+            z-index: 1;
+        }
+
+        .about-text h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 65px;
+            font-weight: 500;
+            line-height: 1;
+            margin: 15px 0 25px;
+        }
+
+        .about-text p {
+            color: #aaa;
+            margin-bottom: 20px;
+        }
+
+        .signature {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            color: var(--gold);
+            font-size: 30px;
+            margin-top: 30px;
+        }
+
+
+        /* =========================================
+           STATS
+        ========================================= */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .stat {
+            padding: 35px;
+            text-align: center;
+            border-right: 1px solid var(--border);
+        }
+
+        .stat:last-child {
+            border-right: 0;
+        }
+
+        .stat h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 50px;
+            color: var(--gold);
+        }
+
+        .stat p {
+            color: #888;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+
+        /* =========================================
+           SERVICES
+        ========================================= */
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .service {
+            padding: 45px 35px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            transition: 0.4s;
+        }
+
+        .service:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold);
+        }
+
+        .service-number {
+            color: var(--gold);
+            font-size: 12px;
+            letter-spacing: 2px;
+        }
+
+        .service h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 35px;
+            margin: 30px 0 15px;
+        }
+
+        .service p {
+            color: #888;
+            font-size: 14px;
+        }
+
+
+        /* =========================================
+           TESTIMONIAL
+        ========================================= */
+
+        .testimonial {
+            background:
+                linear-gradient(
+                    rgba(0,0,0,.7),
+                    rgba(0,0,0,.7)
+                ),
+                url("https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=2000&q=80")
+                center/cover fixed;
+
+            text-align: center;
+        }
+
+        .quote {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .quote-mark {
+            color: var(--gold);
+            font-family: serif;
+            font-size: 90px;
+            line-height: 0.5;
+        }
+
+        .quote p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(30px, 4vw, 48px);
+            line-height: 1.2;
+            margin: 30px 0;
+        }
+
+        .quote span {
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 11px;
+        }
+
+
+        /* =========================================
+           CONTACT
+        ========================================= */
+
+        .contact {
+            background: var(--bg-soft);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+        }
+
+        .contact-info h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 70px;
+            line-height: 0.95;
+            margin: 15px 0 25px;
+        }
+
+        .contact-info p {
+            color: #888;
+            max-width: 500px;
+        }
+
+        .contact-details {
+            margin-top: 35px;
+        }
+
+        .contact-details div {
+            margin-bottom: 20px;
+        }
+
+        .contact-details small {
+            display: block;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 10px;
+            margin-bottom: 5px;
+        }
+
+        .contact-details span {
+            color: #ddd;
+        }
+
+        form {
+            display: grid;
+            gap: 15px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 17px;
+            background: #0b0b0b;
+            color: white;
+            border: 1px solid var(--border);
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: var(--gold);
+        }
+
+        textarea {
+            min-height: 160px;
+            resize: vertical;
+        }
+
+        form button {
+            width: fit-content;
+            border: none;
+            cursor: pointer;
+        }
+
+
+        /* =========================================
+           FOOTER
+        ========================================= */
+
+        footer {
+            padding: 35px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        footer p {
+            color: #666;
+            font-size: 12px;
+        }
+
+        .socials {
+            display: flex;
+            gap: 20px;
+        }
+
+        .socials a {
+            color: #888;
+            font-size: 13px;
+            transition: 0.3s;
+        }
+
+        .socials a:hover {
+            color: var(--gold);
+        }
+
+
+        /* =========================================
+           ANIMATIONS
+        ========================================= */
+
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s forwards;
+        }
+
+        .delay-1 {
+            animation-delay: .2s;
+        }
+
+        .delay-2 {
+            animation-delay: .4s;
+        }
+
+        .delay-3 {
+            animation-delay: .6s;
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media (max-width: 900px) {
+
+            .nav-links {
+                position: absolute;
+                top: 80px;
+                left: 5%;
+                width: 90%;
+
+                background: rgba(10,10,10,.97);
+                border: 1px solid var(--border);
+
+                padding: 25px;
+
+                flex-direction: column;
+                gap: 20px;
+
+                opacity: 0;
+                pointer-events: none;
+                transform: translateY(-10px);
+                transition: 0.3s;
+            }
+
+            .nav-links.open {
+                opacity: 1;
+                pointer-events: auto;
+                transform: translateY(0);
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            .about-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .stats {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .stat:nth-child(2) {
+                border-right: 0;
+            }
+
+            .stat:nth-child(-n+2) {
+                border-bottom: 1px solid var(--border);
+            }
+        }
+
+
+        @media (max-width: 600px) {
+
+            section {
+                padding: 80px 0;
+            }
+
+            .hero h1 {
+                font-size: 65px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-text h2,
+            .contact-info h2 {
+                font-size: 52px;
+            }
+
+            .about-image img {
+                height: 500px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .stat {
+                border-right: 0;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .stat:last-child {
+                border-bottom: 0;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <!-- =========================================
+         NAVIGATION
+    ========================================== -->
+
+    <header id="header">
+
+        <nav>
+
+            <a href="#home" class="logo">
+                LENS<span>.</span>
+            </a>
+
+            <button class="menu-btn" id="menuBtn">
+                ☰
+            </button>
+
+            <ul class="nav-links" id="navLinks">
+
+                <li>
+                    <a href="#home">Home</a>
+                </li>
+
+                <li>
+                    <a href="#portfolio">Portfolio</a>
+                </li>
+
+                <li>
+                    <a href="#about">About</a>
+                </li>
+
+                <li>
+                    <a href="#services">Services</a>
+                </li>
+
+                <li>
+                    <a href="#contact">Contact</a>
+                </li>
+
+            </ul>
+
+        </nav>
+
+    </header>
+
+
+    <!-- =========================================
+         HERO
+    ========================================== -->
+
+    <section class="hero" id="home">
+
+        <div class="container">
+
+            <div class="hero-content">
+
+                <div class="eyebrow fade-up">
+                    Photographer • Visual Artist
+                </div>
+
+                <h1 class="fade-up delay-1">
+                    Stories<br>
+                    <span>in Light.</span>
+                </h1>
+
+                <p class="fade-up delay-2">
+                    I capture authentic moments, emotions and
+                    unforgettable stories through the art of photography.
+                </p>
+
+                <div class="hero-buttons fade-up delay-3">
+
+                    <a href="#portfolio" class="btn btn-primary">
+                        Explore My Work
+                    </a>
+
+                    <a href="#contact" class="btn btn-outline">
+                        Let's Work Together
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="scroll">
+            Scroll to explore ↓
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         PORTFOLIO
+    ========================================== -->
+
+    <section id="portfolio">
+
+        <div class="container">
+
+            <div class="section-heading">
+
+                <small>Selected Work</small>
+
+                <h2>
+                    My Portfolio
+                </h2>
+
+                <p>
+                    A collection of moments, people and places
+                    I've had the privilege to photograph.
+                </p>
+
+            </div>
+
+
+            <div class="filters">
+
+                <button class="filter-btn active" data-filter="all">
+                    All
+                </button>
+
+                <button class="filter-btn" data-filter="portrait">
+                    Portrait
+                </button>
+
+                <button class="filter-btn" data-filter="wedding">
+                    Wedding
+                </button>
+
+                <button class="filter-btn" data-filter="travel">
+                    Travel
+                </button>
+
+                <button class="filter-btn" data-filter="fashion">
+                    Fashion
+                </button>
+
+            </div>
+
+
+            <div class="gallery">
+
+
+                <!-- PHOTO 1 -->
+
+                <div class="photo" data-category="portrait">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=85"
+                        alt="Portrait photography"
+                    >
+
+                    <div class="photo-overlay">
+
+                        <span>Portrait</span>
+
+                        <h3>
+                            Golden Soul
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PHOTO 2 -->
+
+                <div class="photo" data-category="wedding">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=85"
+                        alt="Wedding photography"
+                    >
+
+                    <div class="photo-overlay">
+
+                        <span>Wedding</span>
+
+                        <h3>
+                            Forever
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PHOTO 3 -->
+
+                <div class="photo" data-category="travel">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=85"
+                        alt="Travel photography"
+                    >
+
+                    <div class="photo-overlay">
+
+                        <span>Travel</span>
+
+                        <h3>
+                            Into The Wild
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PHOTO 4 -->
+
+                <div class="photo" data-category="fashion">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=900&q=85"
+                        alt="Fashion photography"
+                    >
+
+                    <div class="photo-overlay">
+
+                        <span>Fashion</span>
+
+                        <h3>
+                            Modern Muse
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PHOTO 5 -->
+
+                <div class="photo" data-category="portrait">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=85"
+                        alt="Portrait"
+                    >
+
+                    <div class="photo-overlay">
+
+                        <span>Portrait</span>
+
+                        <h3>
+                            Silent Beauty
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PHOTO 6 -->
+
+                <div class="photo" data-category="travel">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=900&q=85"
+                        alt="Landscape"
+                    >
+
+                    <div class="photo-overlay">
+
+                        <span>Travel</span>
+
+                        <h3>
+                            Earth & Sky
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PHOTO 7 -->
+
+                <div class="photo" data-category="wedding">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=85"
+                        alt="Wedding"
+                    >
+
+                    <div class="photo-overlay">
+
+                        <span>Wedding</span>
+
+                        <h3>
+                            The Vow
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PHOTO 8 -->
+
+                <div class="photo" data-category="fashion">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=900&q=85"
+                        alt="Fashion"
+                    >
+
+                    <div class="photo-overlay">
+
+                        <span>Fashion</span>
+
+                        <h3>
+                            After Dark
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PHOTO 9 -->
+
+                <div class="photo" data-category="portrait">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?auto=format&fit=crop&w=900&q=85"
+                        alt="Portrait photography"
+                    >
+
+                    <div class="photo-overlay">
+
+                        <span>Portrait</span>
+
+                        <h3>
+                            Her Story
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         ABOUT
+    ========================================== -->
+
+    <section class="about" id="about">
+
+        <div class="container">
+
+            <div class="about-grid">
+
+                <div class="about-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1554048612-b6a482bc67e5?auto=format&fit=crop&w=1000&q=85"
+                        alt="Photographer"
+                    >
+
+                </div>
+
+
+                <div class="about-text">
+
+                    <small class="eyebrow">
+                        Behind The Lens
+                    </small>
+
+                    <h2>
+                        Hello,<br>
+                        I'm Alex.
+                    </h2>
+
+                    <p>
+                        I'm a passionate photographer who believes
+                        that every photograph should tell a story.
+                    </p>
+
+                    <p>
+                        From intimate portraits to breathtaking
+                        landscapes and unforgettable weddings,
+                        I focus on capturing real emotions and
+                        authentic moments.
+                    </p>
+
+                    <p>
+                        My style combines cinematic lighting,
+                        natural emotions and timeless composition.
+                    </p>
+
+                    <div class="signature">
+                        Alex Morgan
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         STATS
+    ========================================== -->
+
+    <section>
+
+        <div class="container">
+
+            <div class="stats">
+
+                <div class="stat">
+                    <h3>08+</h3>
+                    <p>Years Experience</p>
+                </div>
+
+                <div class="stat">
+                    <h3>320+</h3>
+                    <p>Projects Completed</p>
+                </div>
+
+                <div class="stat">
+                    <h3>18</h3>
+                    <p>Countries</p>
+                </div>
+
+                <div class="stat">
+                    <h3>97%</h3>
+                    <p>Happy Clients</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         SERVICES
+    ========================================== -->
+
+    <section id="services">
+
+        <div class="container">
+
+            <div class="section-heading">
+
+                <small>What I Do</small>
+
+                <h2>
+                    Services
+                </h2>
+
+                <p>
+                    Professional photography tailored to
+                    your story and vision.
+                </p>
+
+            </div>
+
+
+            <div class="services-grid">
+
+
+                <div class="service">
+
+                    <span class="service-number">
+                        01
+                    </span>
+
+                    <h3>
+                        Weddings
+                    </h3>
+
+                    <p>
+                        Emotional, cinematic wedding photography
+                        that preserves every important moment
+                        of your special day.
+                    </p>
+
+                </div>
+
+
+                <div class="service">
+
+                    <span class="service-number">
+                        02
+                    </span>
+
+                    <h3>
+                        Portraits
+                    </h3>
+
+                    <p>
+                        Natural and artistic portraits that
+                        capture your personality, confidence
+                        and individuality.
+                    </p>
+
+                </div>
+
+
+                <div class="service">
+
+                    <span class="service-number">
+                        03
+                    </span>
+
+                    <h3>
+                        Fashion
+                    </h3>
+
+                    <p>
+                        Editorial and commercial fashion
+                        photography designed for brands,
+                        campaigns and creative projects.
+                    </p>
+
+                </div>
+
+
+                <div class="service">
+
+                    <span class="service-number">
+                        04
+                    </span>
+
+                    <h3>
+                        Events
+                    </h3>
+
+                    <p>
+                        Professional coverage for events,
+                        celebrations, launches and memorable
+                        occasions.
+                    </p>
+
+                </div>
+
+
+                <div class="service">
+
+                    <span class="service-number">
+                        05
+                    </span>
+
+                    <h3>
+                        Travel
+                    </h3>
+
+                    <p>
+                        Destination photography focused on
+                        landscapes, cultures and authentic
+                        travel experiences.
+                    </p>
+
+                </div>
+
+
+                <div class="service">
+
+                    <span class="service-number">
+                        06
+                    </span>
+
+                    <h3>
+                        Brand Stories
+                    </h3>
+
+                    <p>
+                        Visual storytelling for businesses,
+                        creators and brands that want to stand
+                        out.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         TESTIMONIAL
+    ========================================== -->
+
+    <section class="testimonial">
+
+        <div class="container">
+
+            <div class="quote">
+
+                <div class="quote-mark">
+                    “
+                </div>
+
+                <p>
+                    Alex didn't just photograph our wedding.
+                    He captured how it felt.
+                </p>
+
+                <span>
+                    — Sarah & James
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         CONTACT
+    ========================================== -->
+
+    <section class="contact" id="contact">
+
+        <div class="container">
+
+            <div class="contact-grid">
+
+
+                <div class="contact-info">
+
+                    <small class="eyebrow">
+                        Let's Create
+                    </small>
+
+                    <h2>
+                        Have a story<br>
+                        to tell?
+                    </h2>
+
+                    <p>
+                        Let's create something beautiful together.
+                        Tell me about your project, your vision,
+                        or simply say hello.
+                    </p>
+
+
+                    <div class="contact-details">
+
+                        <div>
+
+                            <small>Email</small>
+
+                            <span>
+                                hello@lensphotography.com
+                            </span>
+
+                        </div>
+
+                        <div>
+
+                            <small>Phone</small>
+
+                            <span>
+                                +234 800 123 4567
+                            </span>
+
+                        </div>
+
+                        <div>
+
+                            <small>Location</small>
+
+                            <span>
+                                Lagos, Nigeria
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <form>
+
+                    <input
+                        type="text"
+                        placeholder="Your Name"
+                        required
+                    >
+
+                    <input
+                        type="email"
+                        placeholder="Your Email"
+                        required
+                    >
+
+                    <input
+                        type="text"
+                        placeholder="Photography Service"
+                    >
+
+                    <textarea
+                        placeholder="Tell me about your project..."
+                    ></textarea>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        Send Message →
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         FOOTER
+    ========================================== -->
+
+    <footer>
+
+        <div class="container">
+
+            <div class="footer-content">
+
+                <p>
+                    © 2026 Lens Photography. All rights reserved.
+                </p>
+
+                <div class="socials">
+
+                    <a href="#">
+                        Instagram
+                    </a>
+
+                    <a href="#">
+                        Behance
+                    </a>
+
+                    <a href="#">
+                        Pinterest
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- =========================================
+         JAVASCRIPT
+    ========================================== -->
+
+    <script>
+
+        /* =========================================
+           NAVBAR SCROLL EFFECT
+        ========================================== */
+
+        const header = document.getElementById("header");
+
+        window.addEventListener("scroll", () => {
+
+            if (window.scrollY > 50) {
+                header.classList.add("scrolled");
+            } else {
+                header.classList.remove("scrolled");
+            }
+
+        });
+
+
+        /* =========================================
+           MOBILE MENU
+        ========================================== */
+
+        const menuBtn = document.getElementById("menuBtn");
+        const navLinks = document.getElementById("navLinks");
+
+        menuBtn.addEventListener("click", () => {
+
+            navLinks.classList.toggle("open");
+
+        });
+
+
+        /* Close mobile menu after clicking */
+
+        document.querySelectorAll(".nav-links a").forEach(link => {
+
+            link.addEventListener("click", () => {
+
+                navLinks.classList.remove("open");
+
+            });
+
+        });
+
+
+        /* =========================================
+           PORTFOLIO FILTER
+        ========================================== */
+
+        const filterButtons =
+            document.querySelectorAll(".filter-btn");
+
+        const photos =
+            document.querySelectorAll(".photo");
+
+
+        filterButtons.forEach(button => {
+
+            button.addEventListener("click", () => {
+
+                /* Remove active state */
+
+                filterButtons.forEach(btn => {
+                    btn.classList.remove("active");
+                });
+
+                /* Add active state */
+
+                button.classList.add("active");
+
+
+                const filter =
+                    button.getAttribute("data-filter");
+
+
+                photos.forEach(photo => {
+
+                    const category =
+                        photo.getAttribute("data-category");
+
+
+                    if (
+                        filter === "all" ||
+                        category === filter
+                    ) {
+
+                        photo.classList.remove("hide");
+
+                    } else {
+
+                        photo.classList.add("hide");
+
+                    }
+
+                });
+
+            });
+
+        });
+
+
+        /* =========================================
+           CONTACT FORM DEMO
+        ========================================== */
+
+        document.querySelector("form")
+            .addEventListener("submit", function(event) {
+
+                event.preventDefault();
+
+                alert(
+                    "Thank you! Your message has been received."
+                );
+
+                this.reset();
+
+            });
+
+    </script>
+
+</body>
+</html>
+```
